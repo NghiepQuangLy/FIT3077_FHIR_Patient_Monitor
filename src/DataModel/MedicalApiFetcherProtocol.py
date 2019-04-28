@@ -22,6 +22,6 @@ class MedicalApiFetcherProtocol(ABC):
         assert type(practitioner_id) is str, "practitioner_id should have type string but is " + \
                                              str(type(practitioner_id))
 
-    #@abstractmethod
-    #def fetch_patient_measurements(self, patient_id: str) -> Measurements:
-     #   assert type(patient_id) is str, "patient_id should have type string but is " + str(type(patient_id))
+    @abstractmethod
+    def fetch_patient_measurements(self, patient_id: str) -> Measurements:
+        assert type(patient_id) is str, "patient_id should have type string but is " + str(type(patient_id))

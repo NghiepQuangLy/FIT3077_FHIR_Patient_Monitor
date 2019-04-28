@@ -2,6 +2,7 @@ from DataModel.MedicalApiFetcherProtocol import MedicalApiFetcherProtocol
 from DataModel.Fetch import Fetch
 from DataModel.Patient import Patient
 from DataModel.Practitioner import Practitioner
+from DataModel.Measurements import Measurements
 
 
 class FhirApiFetcher(MedicalApiFetcherProtocol, Fetch):
@@ -10,6 +11,7 @@ class FhirApiFetcher(MedicalApiFetcherProtocol, Fetch):
     PATIENT_EXTENSION = "Patient"
     PRACTITIONER_EXTENSION = "Practitioner"
     ENCOUNTER_EXTENSION = "Encounter"
+    OBSERVATION_EXTENSION = "Observation"
 
     def fetch_patient(self, patient_id: str) -> Patient:
 
@@ -80,6 +82,34 @@ class FhirApiFetcher(MedicalApiFetcherProtocol, Fetch):
 
         return patient_list
 
+    def fetch_patient_measurements(self, patient_id: str) -> Measurements:
+
+        super().fetch_patient_measurements(patient_id)
+
+        try:
+            int(patient_id)
+        except ValueError as e:
+            err_msg = "FHIR uses only integers for their patient id but input id is ", patient_id
+            e.args = err_msg
+            raise
+
+        patient_measurements_url = self.FHIR_URL + self.OBSERVATION_EXTENSION + "?subject=" + str(patient_id)
+
+        patient_measurements_data = self._fetch(patient_measurements_url)
+
+        patient_measurements = {}
+        for measurement in patient_measurements_data['entry']:
+            try:
+                patient_measurements[measurement['resource']['code']['text']] = measurement['resource']['valueQuantity']
+            except:
+                patient_measurements[measurement['resource']['code']['text']] = \
+                    measurement['resource']['valueCodeableConcept']['text']
+
+        #cholesterol = Cholesterol(patient_measurements['Total Cholesterol']['value'],
+                                  #patient_measurements['Total Cholesterol']['unit'])
+        print(patient_measurements)
+
+        return
 
 thing = FhirApiFetcher()
 a = thing.fetch_practitioner('275')
@@ -92,3 +122,4 @@ new = thing.fetch_patient_of_practitioner('275')
 for patient in new:
     print(patient.id)
     print(patient.name)
+athing = thing.fetch_patient_measurements('1')
