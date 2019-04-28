@@ -69,13 +69,16 @@ class FhirApiFetcher(MedicalApiFetcherProtocol, Fetch):
         practitioner_encounter_list_data = self._fetch(practitioner_encounter_list_url)
 
         patient_ids = set()
+        patient_list = []
+
         for encounter in practitioner_encounter_list_data['entry']:
             patient_id = encounter['resource']['subject']['reference'].replace("Patient/", "")
             patient_ids.add(patient_id)
 
-        print(patient_ids)
+        for patient_id in patient_ids:
+            patient_list.append(self.fetch_patient(patient_id))
 
-        #return [Patient()]
+        return patient_list
 
 
 thing = FhirApiFetcher()
@@ -85,4 +88,7 @@ print(a.id)
 b = thing.fetch_patient('1')
 print(b.name)
 print(b.id)
-new = thing.fetch_patient_of_practitioner(3)
+new = thing.fetch_patient_of_practitioner('275')
+for patient in new:
+    print(patient.id)
+    print(patient.name)

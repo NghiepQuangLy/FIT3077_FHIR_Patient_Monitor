@@ -2,12 +2,11 @@ import urllib.request
 import json
 
 
-class Fetch():
+class Fetch:
 
     def _fetch(self, url):
 
-        if type(url) is not str:
-            raise TypeError("url should be a string but is " + str(type(url)))
+        assert type(url) is str, "url should be a string but is " + str(type(url))
 
         request = urllib.request.Request(url)
 
