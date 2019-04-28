@@ -23,3 +23,5 @@ class Practitioner:
             assert type(patient) is Patient, "A patient in a list of patients should be an instance of Patient class" \
                                              "but is " + str(type(patient))
 
+        self.list_of_patients = list_of_patients
+
