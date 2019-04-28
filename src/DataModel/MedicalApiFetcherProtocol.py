@@ -22,10 +22,8 @@ class MedicalApiFetcherProtocol(ABC):
 
 
     @abstractmethod
-    def fetch_patient_of_practitioner(self, practitioner_id: str, patient_id: str) -> [Patient]:
+    def fetch_patient_of_practitioner(self, practitioner_id: str) -> [Patient]:
 
         if type(practitioner_id) is not int:
             raise TypeError("practitioner_id should have type string but is " + str(type(practitioner_id)))
 
-        if type(patient_id) is not int:
-            raise TypeError("patient_id should have type string but is " + str(type(patient_id)))

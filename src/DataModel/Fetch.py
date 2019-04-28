@@ -1,6 +1,7 @@
 import urllib.request
 import json
 
+
 class Fetch():
 
     def _fetch(self, url):
