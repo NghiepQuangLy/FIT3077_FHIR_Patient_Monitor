@@ -1,32 +1,37 @@
-class Cholesterol:
+from DataModel.Observation import Observation
 
-    def __init__(self, value: float, unit: str):
 
-        assert type(value) is float, "Cholesterol value should be a float but is of type " + str(type(value))
-        assert type(unit) is str, "Cholesterol unit should be a string but is of type " + str(type(unit))
+class Cholesterol(Observation):
+
+    def __init__(self, name: str, value: float, unit: str):
+
+        super().__init__(name, value, unit)
 
         assert value > 0, "Cholesterol needs to be positive but is " + str(value)
         assert unit == "mg/dL" or unit == "mmol/L", "Cholesterol should be measured using either mg/dL or mmol/L but " \
                                                     "the input unit is " + unit
 
-        self.__value = value
-        self.__unit = unit
+        self._name = name
+        self._value = value
+        self._unit = unit
 
-    def get_value(self):
-        return self.__value
+    @Observation.name.setter
+    def name(self, name: str):
+        assert type(name) is str, "Name of cholesterol must be of string type but it is " + str(type(name))
+        self._name = name
 
-    def set_value(self, value: float):
-        assert type(value) is float, "Cholesterol value should be a float but is of type " + str(type(value))
+    @Observation.value.setter
+    def value(self, value: float):
+        assert type(value) is float, "Value of cholesterol must be of float type but it is " + str(type(value))
         assert value > 0, "Cholesterol needs to be positive but is " + str(value)
 
-        self.__value = value
+        self._value = value
 
-    def set_unit(self, unit: str):
-        assert type(unit) is str, "Cholesterol unit should be a string but is of type " + str(type(unit))
+    @Observation.unit.setter
+    def unit(self, unit: str):
+        assert type(unit) is str, "Unit of cholesterol must be of string type but it is " + str(type(unit))
         assert unit == "mg/dL" or unit == "mmol/L", "Cholesterol should be measured using either mg/dL or mmol/L but " \
                                                     "the input unit is " + unit
 
-        self.__unit = unit
+        self._unit = unit
 
-    def get_cholesterol_description(self):
-        return str(self.__value) + " " + self.__unit

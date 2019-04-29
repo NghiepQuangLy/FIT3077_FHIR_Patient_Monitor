@@ -1,11 +1,10 @@
 from DataModel.MedicalApiFetcherProtocol import MedicalApiFetcherProtocol
-from DataModel.Fetch import Fetch
 from DataModel.Patient import Patient
 from DataModel.Practitioner import Practitioner
-from DataModel.Measurements import Measurements
+from DataModel.Observation import Observation
+from DataModel.Cholesterol import Cholesterol
 
-
-class FhirApiFetcher(MedicalApiFetcherProtocol, Fetch):
+class FhirApiFetcher(MedicalApiFetcherProtocol):
 
     FHIR_URL = "http://hapi-fhir.erc.monash.edu:8080/baseDstu3/"
     PATIENT_EXTENSION = "Patient"
@@ -82,7 +81,7 @@ class FhirApiFetcher(MedicalApiFetcherProtocol, Fetch):
 
         return patient_list
 
-    def fetch_patient_measurements(self, patient_id: str) -> Measurements:
+    def fetch_patient_measurements(self, patient_id: str) -> [Observation]:
 
         super().fetch_patient_measurements(patient_id)
 
@@ -105,8 +104,14 @@ class FhirApiFetcher(MedicalApiFetcherProtocol, Fetch):
                 patient_measurements[measurement['resource']['code']['text']] = \
                     measurement['resource']['valueCodeableConcept']['text']
 
-        #cholesterol = Cholesterol(patient_measurements['Total Cholesterol']['value'],
-                                  #patient_measurements['Total Cholesterol']['unit'])
+        cholesterol = Cholesterol('hello', patient_measurements['Total Cholesterol']['value'],
+                                  patient_measurements['Total Cholesterol']['unit'])
+        print(cholesterol.name)
+        print(cholesterol.value)
+        print(cholesterol.unit)
+        print(cholesterol.get_description())
+        cholesterol.value = float(200)
+        print(cholesterol.get_description())
         print(patient_measurements)
 
         return

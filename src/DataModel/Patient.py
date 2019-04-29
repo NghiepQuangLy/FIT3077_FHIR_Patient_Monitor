@@ -1,22 +1,41 @@
-from DataModel.MedicalData import MedicalData
+from DataModel.Observation import Observation
 
 
 class Patient:
 
-    def __init__(self, id: str, name: str, medical_data: MedicalData = None):
+    def __init__(self, id: str, name: str, observations: [Observation] = []):
 
         assert type(id) is str, "patient id should be a string but is " + str(type(id))
         assert type(name) is str, "patient name should be a string but is " + str(type(name))
-        assert type(medical_data) is MedicalData or medical_data is None, \
-            "medical data should be an instance of MedicalData class but is of type " + str(type(medical_data))
+
+        for observation in observations:
+            assert type(observation) is Observation, "An observation must be an instance of Observation class but it " \
+                                                     "is of type " + str(type(observation))
 
         self.id = id
         self.name = name
-        self.medical_data = medical_data
+        self.observations = {}
 
-    def set_medical_data(self, medical_data: MedicalData):
+        for observation in observations:
+            self.observations[observation.name] = observation
 
-        assert type(medical_data) is MedicalData, "medical data should be an instance of MedicalData class but is of" \
-                                                  "type " + str(type(medical_data))
+    def set_medical_data(self, observations: [Observation]):
 
-        self.medical_data = medical_data
+        if observations is None:
+            raise Exception("observations can not be of None")
+
+        for observation in observations:
+            assert type(observation) is Observation, "An observation must be an instance of Observation class but it " \
+                                                     "is of type " + str(type(observation))
+
+        self.observations = {}
+
+        for observation in observations:
+            self.observations[observation.name] = observation
+
+    def update_observations(self, observation: Observation):
+
+        assert type(observation) is Observation, "An observation must be an instance of Observation class but it " \
+                                                     "is of type " + str(type(observation))
+
+        self.observations[observation.name] = observation
