@@ -81,7 +81,7 @@ class FhirApiFetcher(MedicalApiFetcherProtocol):
 
         return patient_list
 
-    def fetch_patient_measurements(self, patient_id: str) -> [Observation]:
+    def fetch_patient_measurements(self, patient_id: str) -> {Observation}:
 
         super().fetch_patient_measurements(patient_id)
 
@@ -96,25 +96,21 @@ class FhirApiFetcher(MedicalApiFetcherProtocol):
 
         patient_measurements_data = self._fetch(patient_measurements_url)
 
-        patient_measurements = {}
+        patient_measurements_all = {}
         for measurement in patient_measurements_data['entry']:
             try:
-                patient_measurements[measurement['resource']['code']['text']] = measurement['resource']['valueQuantity']
+                patient_measurements_all[measurement['resource']['code']['text']] = measurement['resource']['valueQuantity']
             except:
-                patient_measurements[measurement['resource']['code']['text']] = \
+                patient_measurements_all[measurement['resource']['code']['text']] = \
                     measurement['resource']['valueCodeableConcept']['text']
 
-        cholesterol = Cholesterol('hello', patient_measurements['Total Cholesterol']['value'],
-                                  patient_measurements['Total Cholesterol']['unit'])
-        print(cholesterol.name)
-        print(cholesterol.value)
-        print(cholesterol.unit)
-        print(cholesterol.get_description())
-        cholesterol.value = float(200)
-        print(cholesterol.get_description())
-        print(patient_measurements)
+        cholesterol = Cholesterol(patient_measurements_all['Total Cholesterol']['value'],
+                                  patient_measurements_all['Total Cholesterol']['unit'])
 
-        return
+        patient_measurements_relevant = {}
+        patient_measurements_relevant[cholesterol.name] = cholesterol
+
+        return patient_measurements_relevant
 
 thing = FhirApiFetcher()
 a = thing.fetch_practitioner('275')
@@ -128,3 +124,6 @@ for patient in new:
     print(patient.id)
     print(patient.name)
 athing = thing.fetch_patient_measurements('1')
+
+for thing in athing:
+    print(athing[thing].get_description())

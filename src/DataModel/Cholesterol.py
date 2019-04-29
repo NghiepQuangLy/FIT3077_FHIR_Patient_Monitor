@@ -3,17 +3,17 @@ from DataModel.Observation import Observation
 
 class Cholesterol(Observation):
 
-    def __init__(self, name: str, value: float, unit: str):
+    def __init__(self, value: float, unit: str, name: str = "Cholesterol"):
 
-        super().__init__(name, value, unit)
+        super().__init__(value, unit, name)
 
         assert value > 0, "Cholesterol needs to be positive but is " + str(value)
         assert unit == "mg/dL" or unit == "mmol/L", "Cholesterol should be measured using either mg/dL or mmol/L but " \
                                                     "the input unit is " + unit
 
-        self._name = name
         self._value = value
         self._unit = unit
+        self._name = name
 
     @Observation.name.setter
     def name(self, name: str):
@@ -34,4 +34,3 @@ class Cholesterol(Observation):
                                                     "the input unit is " + unit
 
         self._unit = unit
-

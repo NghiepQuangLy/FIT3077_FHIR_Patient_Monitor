@@ -7,10 +7,10 @@ class Observation(ABC):
     _value: float
     _unit: str
 
-    def __init__(self, name: str, value: float, unit: str):
-        assert type(name) is str, "Observation name should be a string but it is of type " + str(type(name))
+    def __init__(self, value: float, unit: str, name: str):
         assert type(value) is float, "Observation value should be a float but is of type " + str(type(value))
         assert type(unit) is str, "Observation unit should be a string but is of type " + str(type(unit))
+        assert type(name) is str, "Observation name should be a string but it is of type " + str(type(name))
 
     @property
     def name(self):
