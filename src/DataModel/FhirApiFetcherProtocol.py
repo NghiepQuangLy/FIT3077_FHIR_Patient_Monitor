@@ -112,18 +112,3 @@ class FhirApiFetcherProtocol(MedicalApiFetcherProtocol):
 
         return patient_measurements_relevant
 
-thing = FhirApiFetcherProtocol()
-a = thing.fetch_practitioner('275')
-print(a.name)
-print(a.id)
-b = thing.fetch_patient('1')
-print(b.name)
-print(b.id)
-new = thing.fetch_patient_of_practitioner('275')
-for patient in new:
-    print(patient.id)
-    print(patient.name)
-athing = thing.fetch_patient_measurements('1')
-
-for thing in athing:
-    print(athing[thing].get_description())
