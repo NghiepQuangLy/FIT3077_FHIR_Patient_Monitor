@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QListView" name="listView_3">
+  <widget class="QListView" name="monitoredPatientListView">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -26,7 +26,7 @@
     <number>0</number>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox_2">
+  <widget class="QComboBox" name="monitoredPatientListTypeSelector">
    <property name="geometry">
     <rect>
      <x>310</x>
@@ -41,7 +41,7 @@
     </property>
    </item>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="showAllPatientButton">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -54,7 +54,7 @@
     <string>Show All Patients</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="monitoredPatientListLabel">
    <property name="geometry">
     <rect>
      <x>10</x>

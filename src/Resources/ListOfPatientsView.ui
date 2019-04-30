@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="allPatientListLabel">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -32,20 +32,7 @@
     <string>LIST OF PATIENTS</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>240</y>
-     <width>131</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Show All Patients</string>
-   </property>
-  </widget>
-  <widget class="QListView" name="listView_3">
+  <widget class="QListView" name="allPatientListView">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -58,7 +45,7 @@
     <number>0</number>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox_2">
+  <widget class="QComboBox" name="allPatientListSortSelector">
    <property name="geometry">
     <rect>
      <x>310</x>
@@ -72,6 +59,19 @@
      <string>Cholesterol</string>
     </property>
    </item>
+  </widget>
+  <widget class="QPushButton" name="showMonitoredPatientButton">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>240</y>
+     <width>131</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Show Monitored Patients</string>
+   </property>
   </widget>
  </widget>
  <resources/>
