@@ -3,22 +3,18 @@ from PyQt5 import QtWidgets
 from View.MyLogInView import MyLogIn
 from Controller.MyLogInViewController import MyLogInViewController
 
-class Application:
-    def __init__(self):
-        app = QtWidgets.QApplication(sys.argv)
 
-        log_in_widget = QtWidgets.QWidget()
+class Application(QtWidgets.QApplication):
+    def __init__(self, sys_argv):
+        super(Application, self).__init__(sys_argv)
+        self._views = {}
+
         log_in_view_controller = MyLogInViewController()
-        self.log_in = MyLogIn(log_in_widget, log_in_view_controller)
-        log_in_widget.show()
+        self._views["log_in"] = MyLogIn(log_in_view_controller)
 
-        list_of_patients_widget = QtWidgets.QWidget()
+        self._views["log_in"].show()
 
-
-        app.exec_()
-
-def main():
-    program = Application()
 
 if __name__ =='__main__':
-    main()
+    app = Application(sys.argv)
+    sys.exit(app.exec())

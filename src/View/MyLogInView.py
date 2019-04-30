@@ -1,14 +1,20 @@
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import pyqtSlot
 from View.PyQt5GeneratedUis.LogInView import UiLogIn
 from Controller import MyLogInViewController
 
 
-class MyLogIn(UiLogIn):
+class MyLogIn(QtWidgets.QWidget):
 
-    def __init__(self, widget, controller: MyLogInViewController):
+    def __init__(self, controller: MyLogInViewController):
         super().__init__()
+
         self._controller = controller
-        self.setupUi(widget)
+        self._ui = UiLogIn()
+        self._ui.setupUi(self)
 
-        self.submitButton.clicked.connect(lambda: controller.id_submitted(self.inputIdLineEdit.text()))
+        self._ui.submitButton.clicked.connect(self.submit)
 
-
+    @pyqtSlot()
+    def submit(self):
+        self._controller.id_submitted(self._ui.inputIdLineEdit.text())

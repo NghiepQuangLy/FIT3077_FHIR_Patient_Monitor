@@ -1,9 +1,12 @@
-from PyQt5.QtCore import pyqtSlot
+from PyQt5 import QtCore
 
 
-class MyLogInViewController:
+class MyLogInViewController(QtCore.QObject):
 
-    @pyqtSlot()
+    def __init__(self):
+        super().__init__()
+
+    @QtCore.pyqtSlot()
     def id_submitted(self, id: str):
         print(id)
-
+        #self.finished.emit("my_list_of_patients_view")
