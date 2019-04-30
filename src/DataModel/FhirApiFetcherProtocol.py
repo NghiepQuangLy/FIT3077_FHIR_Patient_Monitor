@@ -5,7 +5,7 @@ from DataModel.Observation import Observation
 from DataModel.Cholesterol import Cholesterol
 
 
-class FhirApiFetcher(MedicalApiFetcherProtocol):
+class FhirApiFetcherProtocol(MedicalApiFetcherProtocol):
 
     FHIR_URL = "http://hapi-fhir.erc.monash.edu:8080/baseDstu3/"
     PATIENT_EXTENSION = "Patient"
@@ -112,7 +112,7 @@ class FhirApiFetcher(MedicalApiFetcherProtocol):
 
         return patient_measurements_relevant
 
-thing = FhirApiFetcher()
+thing = FhirApiFetcherProtocol()
 a = thing.fetch_practitioner('275')
 print(a.name)
 print(a.id)
