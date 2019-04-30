@@ -8,7 +8,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_Form(object):
+
+class UiLogIn(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(400, 300)
@@ -44,4 +45,3 @@ class Ui_Form(object):
         self.logInLabel.setText(_translate("Form", "LOG IN"))
         self.submitButton.setText(_translate("Form", "Submit"))
         self.enterIdLabel.setText(_translate("Form", "Enter your ID:"))
-
