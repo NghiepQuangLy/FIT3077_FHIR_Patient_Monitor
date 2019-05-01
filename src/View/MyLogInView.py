@@ -14,6 +14,7 @@ class MyLogIn(QtWidgets.QWidget):
         self._ui.setupUi(self)
 
         self._ui.submitButton.clicked.connect(self.submit)
+        self._controller.log_in_finished.connect(self.hide)
 
     @pyqtSlot()
     def submit(self):

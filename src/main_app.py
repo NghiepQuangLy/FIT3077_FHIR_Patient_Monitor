@@ -7,10 +7,12 @@ from Controller.MyLogInViewController import MyLogInViewController
 from Controller.MyListOfPatientsViewController import MyListOfPatientsViewController
 from Controller.MyListOfMonitoredPatientsViewController import MyListOfMonitoredPatientsViewController
 
+
 class Application(QtWidgets.QApplication):
     def __init__(self, sys_argv):
         super(Application, self).__init__(sys_argv)
         self._views = {}
+        self._controller = {}
 
         log_in_view_controller = MyLogInViewController()
         self._views["log_in"] = MyLogIn(log_in_view_controller)
@@ -20,6 +22,9 @@ class Application(QtWidgets.QApplication):
 
         list_of_monitored_patients_view_controller = MyListOfMonitoredPatientsViewController()
         self._views["list_of_monitored_patients"] = MyListOfMonitoredPatients(list_of_monitored_patients_view_controller)
+
+        self._controller["log_in"] = log_in_view_controller
+        self._controller["log_in"].log_in_finished.connect(self.change_view)
 
         self.change_view("log_in")
 
