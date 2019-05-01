@@ -26,6 +26,12 @@ class Application(QtWidgets.QApplication):
         self._controller["log_in"] = log_in_view_controller
         self._controller["log_in"].log_in_finished.connect(self.change_view)
 
+        self._controller["list_of_patients"] = list_of_patients_view_controller
+        self._controller["list_of_patients"].list_of_patients_finished.connect(self.change_view)
+
+        self._controller["list_of_monitored_patients"] = list_of_monitored_patients_view_controller
+        self._controller["list_of_monitored_patients"].list_of_monitored_patients_finished.connect(self.change_view)
+
         self.change_view("log_in")
 
     @QtCore.pyqtSlot(str)
