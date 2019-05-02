@@ -18,26 +18,27 @@ class Model(ModelProtocol, Subject):
             self.add_patient(patient)
 
     def add_patient(self, patient: Patient):
-        self.list_of_patients.append(Patient)
-        self._notify(self.get_state())
+        self._list_of_patients.append(patient)
+        self.set_state()
+        self._notify()
 
     def add_monitored_patient(self, patient: Patient, value_for_monitor: str):
         try:
-            self.list_of_monitors[value_for_monitor].append(patient)
+            self._list_of_monitors[value_for_monitor].append(patient)
         except:
-            self.list_of_monitors[value_for_monitor] = []
-            self.list_of_monitors[value_for_monitor].append(patient)
-        self._notify(self.get_state())
+            self._list_of_monitors[value_for_monitor] = []
+            self._list_of_monitors[value_for_monitor].append(patient)
+        self.set_state()
+        self._notify()
 
     def remove_monitored_patient(self, patient: Patient, value_for_monitor: str):
         try:
-            self.list_of_monitors[value_for_monitor].remove(patient)
+            self._list_of_monitors[value_for_monitor].remove(patient)
         except:
             pass
-        self._notify(self.get_state())
+        self.set_state()
+        self._notify()
 
-    def get_state(self):
-        return {
-            "list_of_patients": self._list_of_patients,
-            "list_of_monitors": self._list_of_monitors
-        }
+    def set_state(self):
+        self._subject_state = {"list_of_patients": self._list_of_patients,
+                               "list_of_monitors": self._list_of_monitors}

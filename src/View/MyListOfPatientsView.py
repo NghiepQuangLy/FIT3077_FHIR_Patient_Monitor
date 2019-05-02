@@ -19,3 +19,6 @@ class MyListOfPatients(QtWidgets.QWidget):
     @pyqtSlot()
     def show_monitored_patients(self):
         self._controller.show_monitored_patients()
+
+    def update(self, subject_state):
+        print("hello")
