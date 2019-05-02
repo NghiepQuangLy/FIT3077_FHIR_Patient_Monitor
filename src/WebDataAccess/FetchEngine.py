@@ -1,5 +1,5 @@
-from DataModel.FhirApiFetcherProtocol import FhirApiFetcherProtocol
-from DataModel.MedicalApiFetcherProtocol import MedicalApiFetcherProtocol
+from WebDataAccess.FhirApiFetcherProtocol import FhirApiFetcherProtocol
+from WebDataAccess.MedicalApiFetcherProtocol import MedicalApiFetcherProtocol
 
 
 class FetchEngine:
@@ -24,17 +24,19 @@ class FetchEngine:
 
 
 thing = FhirApiFetcherProtocol()
-a = thing.fetch_practitioner('275')
+a = thing.fetch_practitioner('1')
 print(a.name)
 print(a.id)
-b = thing.fetch_patient('1')
-print(b.name)
-print(b.id)
-new = thing.fetch_patient_of_practitioner('275')
+new = thing.fetch_patient_of_practitioner('1')
 for patient in new:
     print(patient.id)
     print(patient.name)
-athing = thing.fetch_patient_measurements('1')
+athing = thing.fetch_patient_measurements('183604')
+
+for thing in athing:
+    print(athing[thing].get_description())
+
+athing = thing.fetch_patient_measurements('310')
 
 for thing in athing:
     print(athing[thing].get_description())

@@ -1,4 +1,4 @@
-from DataModel.MedicalApiFetcherProtocol import MedicalApiFetcherProtocol
+from WebDataAccess.MedicalApiFetcherProtocol import MedicalApiFetcherProtocol
 from DataModel.Patient import Patient
 from DataModel.Practitioner import Practitioner
 from DataModel.Observation import Observation
@@ -12,6 +12,7 @@ class FhirApiFetcherProtocol(MedicalApiFetcherProtocol):
     PRACTITIONER_EXTENSION = "Practitioner"
     ENCOUNTER_EXTENSION = "Encounter"
     OBSERVATION_EXTENSION = "Observation"
+    CHOLESTEROL_CODE = "2093-3"
 
     def fetch_patient(self, patient_id: str) -> Patient:
 
@@ -93,22 +94,26 @@ class FhirApiFetcherProtocol(MedicalApiFetcherProtocol):
             e.args = err_msg
             raise
 
-        patient_measurements_url = self.FHIR_URL + self.OBSERVATION_EXTENSION + "?subject=" + str(patient_id)
-
-        patient_measurements_data = self._fetch(patient_measurements_url)
+        cholesterol = self.__fetch_patient_cholesterol(patient_id)
 
         patient_measurements_all = {}
-        for measurement in patient_measurements_data['entry']:
-            try:
-                patient_measurements_all[measurement['resource']['code']['text']] = measurement['resource']['valueQuantity']
-            except:
-                patient_measurements_all[measurement['resource']['code']['text']] = \
-                    measurement['resource']['valueCodeableConcept']['text']
 
-        cholesterol = Cholesterol(patient_measurements_all['Total Cholesterol']['value'],
-                                  patient_measurements_all['Total Cholesterol']['unit'])
+        if cholesterol is not None:
+            patient_measurements_all["Cholesterol"] = cholesterol
 
-        patient_measurements_relevant = {cholesterol.name: cholesterol}
+        return patient_measurements_all
 
-        return patient_measurements_relevant
+    def __fetch_patient_cholesterol(self, patient_id: str) -> Cholesterol:
 
+        patient_cholesterol_url = self.FHIR_URL + self.OBSERVATION_EXTENSION + "?code=" + self.CHOLESTEROL_CODE + \
+                                   "&subject=" + str(patient_id)
+
+        patient_cholesterol_data = self._fetch(patient_cholesterol_url)
+
+        try:
+            value = patient_cholesterol_data['entry'][0]['resource']['valueQuantity']['value']
+            unit = patient_cholesterol_data['entry'][0]['resource']['valueQuantity']['unit']
+        except:
+            return None
+
+        return Cholesterol(value, unit)
