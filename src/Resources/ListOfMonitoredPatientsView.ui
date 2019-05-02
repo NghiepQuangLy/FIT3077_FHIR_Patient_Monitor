@@ -13,19 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QListView" name="monitoredPatientListView">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>40</y>
-     <width>381</width>
-     <height>192</height>
-    </rect>
-   </property>
-   <property name="modelColumn">
-    <number>0</number>
-   </property>
-  </widget>
   <widget class="QComboBox" name="monitoredPatientListTypeSelector">
    <property name="geometry">
     <rect>
@@ -71,6 +58,16 @@
    </property>
    <property name="text">
     <string>LIST OF PATIENTS</string>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="monitoredPatientListWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>381</width>
+     <height>192</height>
+    </rect>
    </property>
   </widget>
  </widget>

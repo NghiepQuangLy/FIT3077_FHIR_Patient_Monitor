@@ -19,7 +19,7 @@ class Model(ModelProtocol, Subject):
 
     def add_patient(self, patient: Patient):
         self.list_of_patients.append(Patient)
-        self._notify()
+        self._notify(self.get_state())
 
     def add_monitored_patient(self, patient: Patient, value_for_monitor: str):
         try:
@@ -27,11 +27,17 @@ class Model(ModelProtocol, Subject):
         except:
             self.list_of_monitors[value_for_monitor] = []
             self.list_of_monitors[value_for_monitor].append(patient)
-        self._notify()
+        self._notify(self.get_state())
 
     def remove_monitored_patient(self, patient: Patient, value_for_monitor: str):
         try:
             self.list_of_monitors[value_for_monitor].remove(patient)
         except:
             pass
-        self._notify()
+        self._notify(self.get_state())
+
+    def get_state(self):
+        return {
+            "list_of_patients": self._list_of_patients,
+            "list_of_monitors": self._list_of_monitors
+        }
