@@ -1,6 +1,3 @@
-from Observer.Observer import Observer
-
-
 class Subject:
 
     _observers = set()
