@@ -21,22 +21,3 @@ class FetchEngine:
 
     def fetch_patient_measurements(self, patient_id: str):
         return self.__fetch_protocol.fetch_patient_measurements(patient_id)
-
-
-# thing = FhirApiFetcherProtocol()
-# a = thing.fetch_practitioner('1')
-# print(a.name)
-# print(a.id)
-# new = thing.fetch_patient_of_practitioner('1')
-# for patient in new:
-#     print(patient.id)
-#     print(patient.name)
-# athing = thing.fetch_patient_measurements('183604')
-#
-# for thing in athing:
-#     print(athing[thing].get_description())
-#
-# athing = thing.fetch_patient_measurements('310')
-#
-# for thing in athing:
-#     print(athing[thing].get_description())

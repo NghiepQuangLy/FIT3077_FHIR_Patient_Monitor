@@ -28,9 +28,10 @@ class FhirApiFetcherProtocol(MedicalApiFetcherProtocol):
         patient_url = self.FHIR_URL + self.PATIENT_EXTENSION + "/" + str(patient_id)
 
         patient_data = self._fetch(patient_url)
-
+        patient_measurements = self.fetch_patient_measurements(str(patient_id))
         patient = Patient(patient_data['id'],
-                          patient_data['name'][0]['given'][0] + " " + patient_data['name'][0]['family'])
+                          patient_data['name'][0]['given'][0] + " " + patient_data['name'][0]['family'],
+                          patient_measurements)
 
         return patient
 

@@ -9,5 +9,4 @@ class MyLogInViewController(QtCore.QObject):
         super().__init__()
 
     def id_submitted(self, id: str):
-        print(id)
         self.log_in_finished.emit(id)

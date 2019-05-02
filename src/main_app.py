@@ -28,11 +28,12 @@ class Application(QtWidgets.QApplication):
 
     @QtCore.pyqtSlot(str)
     def initialise_data(self, user_id):
-        print(user_id)
+
         self._model = Model(FetchEngine(FhirApiFetcherProtocol()), str(user_id))
         for patient in self._model._list_of_patients:
             print(patient.name)
             print(patient.id)
+            print(patient.observations['Cholesterol'].value)
 
         list_of_patients_view_controller = MyListOfPatientsViewController()
         self._views["list_of_patients"] = MyListOfPatients(self._model, list_of_patients_view_controller)
