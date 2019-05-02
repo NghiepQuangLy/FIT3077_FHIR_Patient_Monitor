@@ -1,14 +1,16 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
+from DataModel.Model import Model
 from View.PyQt5GeneratedUis.ListOfMonitoredPatientsView import UiListOfMonitoredPatients
 from Controller import MyListOfMonitoredPatientsViewController
 
 
 class MyListOfMonitoredPatients(QtWidgets.QWidget):
 
-    def __init__(self, controller: MyListOfMonitoredPatientsViewController):
+    def __init__(self, model: Model, controller: MyListOfMonitoredPatientsViewController):
         super().__init__()
 
+        self._model = model
         self._controller = controller
         self._ui = UiListOfMonitoredPatients()
         self._ui.setupUi(self)

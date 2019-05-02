@@ -21,20 +21,8 @@ class Application(QtWidgets.QApplication):
         log_in_view_controller = MyLogInViewController()
         self._views["log_in"] = MyLogIn(log_in_view_controller)
 
-        list_of_patients_view_controller = MyListOfPatientsViewController()
-        self._views["list_of_patients"] = MyListOfPatients(list_of_patients_view_controller)
-
-        list_of_monitored_patients_view_controller = MyListOfMonitoredPatientsViewController()
-        self._views["list_of_monitored_patients"] = MyListOfMonitoredPatients(list_of_monitored_patients_view_controller)
-
         self._controller["log_in"] = log_in_view_controller
         self._controller["log_in"].log_in_finished.connect(self.initialise_data)
-
-        self._controller["list_of_patients"] = list_of_patients_view_controller
-        self._controller["list_of_patients"].list_of_patients_finished.connect(self.change_view)
-
-        self._controller["list_of_monitored_patients"] = list_of_monitored_patients_view_controller
-        self._controller["list_of_monitored_patients"].list_of_monitored_patients_finished.connect(self.change_view)
 
         self.change_view("log_in")
 
@@ -42,7 +30,24 @@ class Application(QtWidgets.QApplication):
     def initialise_data(self, user_id):
         print(user_id)
         self._model = Model(FetchEngine(FhirApiFetcherProtocol()), str(user_id))
-        print(self._model._list_of_patients)
+        for patient in self._model._list_of_patients:
+            print(patient.name)
+            print(patient.id)
+
+        list_of_patients_view_controller = MyListOfPatientsViewController()
+        self._views["list_of_patients"] = MyListOfPatients(self._model, list_of_patients_view_controller)
+
+        list_of_monitored_patients_view_controller = MyListOfMonitoredPatientsViewController()
+        self._views["list_of_monitored_patients"] = MyListOfMonitoredPatients(self._model,
+                                                                              list_of_monitored_patients_view_controller)
+
+        self._controller["list_of_patients"] = list_of_patients_view_controller
+        self._controller["list_of_patients"].list_of_patients_finished.connect(self.change_view)
+
+        self._controller["list_of_monitored_patients"] = list_of_monitored_patients_view_controller
+        self._controller["list_of_monitored_patients"].list_of_monitored_patients_finished.connect(self.change_view)
+
+        self.change_view("list_of_patients")
 
     @QtCore.pyqtSlot(str)
     def change_view(self, view_name):
@@ -51,11 +56,6 @@ class Application(QtWidgets.QApplication):
             view.show()
 
 
-# if __name__ =='__main__':
-#     app = Application(sys.argv)
-#     sys.exit(app.exec())
-a = Model(FetchEngine(FhirApiFetcherProtocol()), "1")
-print(a._list_of_patients)
-for patient in a._list_of_patients:
-    print(patient.name)
-    print(patient.id)
+if __name__ =='__main__':
+    app = Application(sys.argv)
+    sys.exit(app.exec())
