@@ -1,0 +1,17 @@
+Design decisions:
+1. The reason for putting the directional association between the views and controllers is because when the user
+interacts with a view (eg. clicking a button), it has to notify its controller to execute some logic (ie. calling 
+some kind of method in the controller class). However, though the controller seems to be connected to the view, it is
+actually not. It does not know which view it was that asked it to do things.
+2. There is no method to fetch practitioner at this point in the fetch protocol. This is to keep the design simple as 
+the application does not need this functionality at the moment. It is still extensible later on (since we only 
+need to add an extra abstract method to the existing interface if we need it and not having to edit existing code or 
+interface usage).
+3. The initial design of the interval update of monitored patients functionality was going to be within a monitor
+class. This was to allow for great flexibility by allowing user to set the update frequency of each monitor.
+However, it is realized that for future extensibility (where we might need to add in different types of monitor
+for the same patient), we can have a situation like this: cholesterol monitor for patient A every 1 hour and
+blood pressure monitor for patient A every 30 hour. This would make the system refetch the data for the same patient
+again and again at unsynced intervals and is really inefficient. We, of course, can implement a check to see when
+this patient was last updated but then this can lead to very complicated problems to consider. Thus, we decide to use 
+a synced uniform value when updating monitored patient data.

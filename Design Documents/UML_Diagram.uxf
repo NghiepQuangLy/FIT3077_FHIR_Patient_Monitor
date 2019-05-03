@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>955</x>
+      <y>320</y>
+      <w>175</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>Observer
+--
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>140</x>
+      <y>345</y>
+      <w>225</w>
+      <h>285</h>
+    </coordinates>
+    <panel_attributes>WebDataAccess
+--
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>765</x>
+      <y>485</y>
+      <w>250</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>View
+
+--
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>380</x>
+      <y>505</y>
+      <w>165</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>Controller
+--
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>165</x>
+      <y>365</y>
+      <w>160</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>FetchEngine
+--
+- fetchProtocol: MedicalApiFetcherProtocol
+--
++ fetch_patient(patient_id: str)
++ fetch_patient_of_practitioner(practitioner_id: str)
++ fetch_patient_measurements(patient_id: str)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>155</x>
+      <y>450</y>
+      <w>200</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+MedicalApiFetcherProtocol
+--
++ fetch_patient(patient_id: string) : Patient
++ fetch_patient_of_practitioner(practitioner_id: str) : [Patient]
++ fetch_patient_measurements(patient_id: str) : [Observation]
+- fetch(url: str) : json</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>145</x>
+      <y>545</y>
+      <w>210</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>FhirApiFetcherProtocol
+--
+- FHIR_URL: str
+- PATIENT_EXTENSION: str
+- PRACTITIONER_EXTENSION: str
+- ENCOUNTER_EXTENSION: str
+- OBSERVATION_EXTENSION: str
+- CHOLESTEROL_CODE: str
+--
+- fetch_patient_cholesterol(patient_id: str) -&gt; Cholesterol
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>245</x>
+      <y>520</y>
+      <w>15</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>245</x>
+      <y>410</y>
+      <w>15</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>460</x>
+      <y>5</y>
+      <w>435</w>
+      <h>410</h>
+    </coordinates>
+    <panel_attributes>DataModel
+
+--
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>475</x>
+      <y>250</y>
+      <w>245</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ModelProtocol
+--
+- user_id: str
+- list_of_patients: [Patient]
+- list_of_unmonitored_patients: {unmonitored_value:str : [Patient]}
+- list_of_monitored_patients: {monitored_value:str : [Monitor]}
+--
++ add_unmonitored_patient(patient: Patient, unmonitored_value: str)
++ add_monitored_patient(monitor: Monitor, value_for_monitor: str)
++ remove_unmonitored_patient(patient_id: str, unmonitored_value: str)
++ remove_monitored_patient(patient_id: str, value_for_monitor: str)
++ add_patient(patient: Patient)
++ get_patient(patient_id: str) : Patient</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>715</x>
+      <y>310</y>
+      <w>45</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>975</x>
+      <y>340</y>
+      <w>140</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Subject
+--
+- observers: Set(Observer)
+- subject_state
+--
++ attach(observer: Observer)
++ detach(observer: Observer)
+- notify()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>975</x>
+      <y>445</y>
+      <w>140</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Observer
+--
++ update(subject_state)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>815</x>
+      <y>325</y>
+      <w>170</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>320.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>725</x>
+      <y>115</y>
+      <w>140</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Observation
+--
+- name: str
+- value: str
+- unit: str
+--
++ get_name() : str
++ get_value() : str
++ get_unit() : str
++ set_name(name: str)
++ set_value(value: str)
++ set_unit(unit: str)
++ get_description() : str</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>725</x>
+      <y>55</y>
+      <w>140</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Cholesterol
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>790</x>
+      <y>85</y>
+      <w>55</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+is a kind of &gt;</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>140</y>
+      <w>160</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>Patient
+--
+- id: str
+- name: str
+- observations: {Observation}
+--
++ set_medical_data(observations: {Observation})
++ update_observations(observation: Observation)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>325</y>
+      <w>480</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt; gets data using fetch engine</panel_attributes>
+    <additional_attributes>10.0;110.0;940.0;110.0;940.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>525</x>
+      <y>50</y>
+      <w>160</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Practitioner
+--
++ set_medical_data(observations: {Observation})
++ update_observations(observation: Observation)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>595</x>
+      <y>200</y>
+      <w>65</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+&lt; holds a list of 
+m1=0..n
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>595</x>
+      <y>90</y>
+      <w>25</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>165</y>
+      <w>60</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+m1=0..n
+m2=1</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>520</y>
+      <w>140</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>MyLogInViewController
+--
++ id_submitted(id: str): str</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>570</y>
+      <w>140</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>MyListOfPatientsViewController
+--
+- model: Model
+--
++ monitor_patient(patient_id: str)
++ show_monitored_patient()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>620</y>
+      <w>140</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>MyListOfMonitoredPatientsViewController
+--
+- model: Model
+--
++ unmonitor_patient(patient_id: str)
++ show_all_patients()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>785</x>
+      <y>515</y>
+      <w>140</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>MyLogInView
+--
+- model: Model
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>785</x>
+      <y>555</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>MyListOfPatientsView
+--
+- model: Model
+--
+- load_list(patient_list: [Patient])
++ update(subject_state)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>785</x>
+      <y>615</y>
+      <w>140</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>MyListOfMonitoredPatientsView
+--
+- model: Model
+--
+- load_list(patient_list: [Patient])
++ update(subject_state)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>920</x>
+      <y>480</y>
+      <w>130</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>240.0;10.0;240.0;300.0;10.0;300.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>920</x>
+      <y>480</y>
+      <w>130</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>240.0;10.0;240.0;210.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>165</y>
+      <w>165</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Application
+--
+- model: Model
+- views: {view_name:str : view:View}
+- controller: {view_name:str : controller:Controller}
+--
+- change_view(view_name: str)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>525</x>
+      <y>530</y>
+      <w>270</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+&lt; notifies controller of user input
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>520.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>525</x>
+      <y>585</y>
+      <w>270</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+&lt; notifies the controller of user input
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>520.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>525</x>
+      <y>625</y>
+      <w>270</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+&lt; notifies the controller of user input
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>520.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>750</x>
+      <y>280</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Model
+--
+- fetch_engine: FetchEngine
+- update_frequency: int
+--
++ set_update_frequency(interval: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>350</y>
+      <w>140</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+changes data using protocol &gt;
+</panel_attributes>
+    <additional_attributes>10.0;330.0;10.0;190.0;260.0;190.0;260.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>585</x>
+      <y>350</y>
+      <w>305</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+&lt; accesses data using protocol
+</panel_attributes>
+    <additional_attributes>590.0;310.0;590.0;190.0;10.0;190.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>95</x>
+      <y>140</y>
+      <w>435</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>850.0;10.0;10.0;10.0;10.0;700.0;120.0;700.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>95</x>
+      <y>115</y>
+      <w>640</w>
+      <h>385</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>1260.0;10.0;10.0;10.0;10.0;750.0;120.0;750.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>885</x>
+      <y>190</y>
+      <w>170</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt; initialise model and attach views to it</panel_attributes>
+    <additional_attributes>10.0;220.0;80.0;220.0;80.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1010</x>
+      <y>205</y>
+      <w>200</w>
+      <h>455</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+initialise views &gt;</panel_attributes>
+    <additional_attributes>10.0;890.0;280.0;890.0;280.0;10.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>185</y>
+      <w>760</w>
+      <h>580</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt; assign controllers to views</panel_attributes>
+    <additional_attributes>10.0;990.0;10.0;1140.0;1500.0;1140.0;1500.0;10.0;1300.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1035</x>
+      <y>400</y>
+      <w>120</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+notifies user of updates in itself &gt;
+m1=0..n</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>790</x>
+      <y>665</y>
+      <w>115</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>CustomPatientListItemWidget
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>900</x>
+      <y>590</y>
+      <w>75</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+m1=1..n
+m2=1</panel_attributes>
+    <additional_attributes>10.0;200.0;130.0;200.0;130.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>900</x>
+      <y>640</y>
+      <w>190</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+display a patient using design from &gt;
+m2=1</panel_attributes>
+    <additional_attributes>10.0;100.0;130.0;100.0;130.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+</diagram>
