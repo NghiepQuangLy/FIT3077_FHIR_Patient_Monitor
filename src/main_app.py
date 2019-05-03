@@ -48,6 +48,9 @@ class Application(QtWidgets.QApplication):
         self._controller["list_of_monitored_patients"] = list_of_monitored_patients_view_controller
         self._controller["list_of_monitored_patients"].list_of_monitored_patients_finished.connect(self.change_view)
 
+        self._model.attach(self._views["list_of_patients"])
+        self._model.attach(self._views["list_of_monitored_patients"])
+
         self.change_view("list_of_patients")
 
     @QtCore.pyqtSlot(str)

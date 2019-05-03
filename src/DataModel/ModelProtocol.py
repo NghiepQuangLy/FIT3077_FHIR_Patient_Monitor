@@ -6,6 +6,7 @@ class ModelProtocol(ABC):
 
     user_id: int
     _list_of_patients = []
+    _list_of_unmonitored_patients = {"cholesterol": []}
     _list_of_monitors = {"cholesterol": []}
 
     def __init__(self):
