@@ -31,11 +31,19 @@ class MyListOfPatients(QtWidgets.QWidget):
 
     def load_list(self, patient_list):
 
+        current_list_type = str(self._ui.allPatientListSortSelector.currentText())
+
         for patient in patient_list:
+
+            try:
+                patient_measurement = patient.observations[current_list_type].get_description()
+            except:
+                patient_measurement = ""
 
             default_list_item = QtWidgets.QListWidgetItem()
 
-            patient_list_item = CustomPatientListItemWidget(patient.name, "Monitor", self.monitor_patient, patient.id)
+            patient_list_item = CustomPatientListItemWidget(patient.name, "Monitor", self.monitor_patient, patient.id,
+                                                            patient_measurement)
 
             default_list_item.setSizeHint(patient_list_item.sizeHint())
 
