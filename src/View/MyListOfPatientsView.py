@@ -31,9 +31,9 @@ class MyListOfPatients(QtWidgets.QWidget):
 
     def load_list(self, patient_list):
 
-        default_list_item = QtWidgets.QListWidgetItem()
-
         for patient in patient_list:
+
+            default_list_item = QtWidgets.QListWidgetItem()
 
             patient_list_item = CustomPatientListItemWidget(patient.name, "Monitor", self.monitor_patient, patient.id)
 

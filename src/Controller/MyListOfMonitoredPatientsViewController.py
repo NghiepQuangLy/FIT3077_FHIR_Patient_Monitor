@@ -1,11 +1,12 @@
 from PyQt5 import QtCore
+from DataModel.ModelProtocol import ModelProtocol
 
 
 class MyListOfMonitoredPatientsViewController(QtCore.QObject):
 
     list_of_monitored_patients_finished = QtCore.pyqtSignal(str)
 
-    def __init__(self, model):
+    def __init__(self, model: ModelProtocol):
         super().__init__()
 
         # assert issubclass(model, ModelProtocol), "model should conform to the Model Protocol"

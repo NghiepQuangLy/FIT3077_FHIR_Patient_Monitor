@@ -31,9 +31,10 @@ class MyListOfMonitoredPatients(QtWidgets.QWidget):
 
     def load_list(self, monitored_patient_list):
 
-        default_list_item = QtWidgets.QListWidgetItem()
-
         for patient in monitored_patient_list:
+
+            default_list_item = QtWidgets.QListWidgetItem()
+
             patient_list_item = CustomPatientListItemWidget(patient.name, "Unmonitor",
                                                             self.unmonitor_patient, patient.id)
 

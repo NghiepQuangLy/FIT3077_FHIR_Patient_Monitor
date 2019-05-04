@@ -33,7 +33,7 @@ class Application(QtWidgets.QApplication):
         for patient in self._model._list_of_patients:
             print(patient.name)
             print(patient.id)
-            print(patient.observations['Cholesterol'].value)
+        #     print(patient.observations['Cholesterol'].value)
 
         list_of_patients_view_controller = MyListOfPatientsViewController(self._model)
         self._views["list_of_patients"] = MyListOfPatients(self._model, list_of_patients_view_controller)
