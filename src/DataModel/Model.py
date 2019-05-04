@@ -2,7 +2,6 @@ from WebDataAccess.FetchEngine import FetchEngine
 from DataModel.ModelProtocol import ModelProtocol
 from DataModel.Patient import Patient
 from Observer.Subject import Subject
-from DataModel.Monitor import Monitor
 
 
 class Model(ModelProtocol, Subject):
@@ -33,12 +32,12 @@ class Model(ModelProtocol, Subject):
         self.set_state()
         self._notify()
 
-    def add_monitored_patient(self, monitor: Monitor, value_for_monitor: str):
+    def add_monitored_patient(self, patient: Patient, value_for_monitor: str):
         try:
-            self._list_of_monitors[value_for_monitor].append(monitor)
+            self._list_of_monitors[value_for_monitor].append(patient)
         except:
             self._list_of_monitors[value_for_monitor] = []
-            self._list_of_monitors[value_for_monitor].append(monitor)
+            self._list_of_monitors[value_for_monitor].append(patient)
         self.set_state()
         self._notify()
 
@@ -57,8 +56,8 @@ class Model(ModelProtocol, Subject):
     def remove_monitored_patient(self, patient_id: str, value_for_monitor: str):
         try:
             for index in range(len(self._list_of_monitors[value_for_monitor])):
-                current_monitor = self._list_of_monitors[value_for_monitor][index]
-                if patient_id == current_monitor.subject_of_monitor.id:
+                current_patient = self._list_of_monitors[value_for_monitor][index]
+                if patient_id == current_patient.id:
                     break
             self._list_of_monitors[value_for_monitor].pop(index)
         except:

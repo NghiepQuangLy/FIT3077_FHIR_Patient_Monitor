@@ -23,13 +23,13 @@ class MyListOfMonitoredPatients(QtWidgets.QWidget):
     def show_all_patients(self):
         self._controller.show_all_patients()
 
-    def load_list(self, monitor_list):
+    def load_list(self, monitored_patient_list):
 
         default_list_item = QtWidgets.QListWidgetItem()
 
-        for monitor in monitor_list:
-            patient_list_item = CustomPatientListItemWidget(monitor.subject_of_monitor.name, "Unmonitor",
-                                                            self.unmonitor_patient, monitor.subject_of_monitor.id)
+        for patient in monitored_patient_list:
+            patient_list_item = CustomPatientListItemWidget(patient.name, "Unmonitor",
+                                                            self.unmonitor_patient, patient.id)
 
             default_list_item.setSizeHint(patient_list_item.sizeHint())
 

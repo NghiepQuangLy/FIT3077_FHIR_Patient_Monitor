@@ -4,7 +4,6 @@ from DataModel.Model import Model
 from View.PyQt5GeneratedUis.ListOfPatientsView import UiListOfPatients
 from View.CustomPatientListItemWidget import CustomPatientListItemWidget
 from Controller import MyListOfPatientsViewController
-from DataModel.Monitor import Monitor
 
 
 class MyListOfPatients(QtWidgets.QWidget):
@@ -47,5 +46,5 @@ class MyListOfPatients(QtWidgets.QWidget):
         patient_id_selected = self.sender().objectName()
         self._model.remove_unmonitored_patient(patient_id_selected, 'cholesterol')
         monitored_patient = self._model.get_patient(patient_id_selected)
-        self._model.add_monitored_patient(Monitor(monitored_patient, 100), 'cholesterol')
+        self._model.add_monitored_patient(monitored_patient, 'cholesterol')
         print(patient_id_selected)
