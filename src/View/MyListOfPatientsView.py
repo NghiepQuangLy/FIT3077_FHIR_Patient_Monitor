@@ -23,6 +23,12 @@ class MyListOfPatients(QtWidgets.QWidget):
     def show_monitored_patients(self):
         self._controller.show_monitored_patients()
 
+    @pyqtSlot()
+    def monitor_patient(self):
+        patient_id_selected = self.sender().objectName()
+        self._controller.monitor_patient(patient_id_selected,
+                                         str(self._ui.allPatientListSortSelector.currentText()).lower())
+
     def load_list(self, patient_list):
 
         default_list_item = QtWidgets.QListWidgetItem()
@@ -40,11 +46,3 @@ class MyListOfPatients(QtWidgets.QWidget):
         self._ui.allPatientListWidget.clear()
         self.load_list(self._model._list_of_unmonitored_patients['cholesterol'])
         print("hello")
-
-    @pyqtSlot()
-    def monitor_patient(self):
-        patient_id_selected = self.sender().objectName()
-        self._model.remove_unmonitored_patient(patient_id_selected, 'cholesterol')
-        monitored_patient = self._model.get_patient(patient_id_selected)
-        self._model.add_monitored_patient(monitored_patient, 'cholesterol')
-        print(patient_id_selected)
