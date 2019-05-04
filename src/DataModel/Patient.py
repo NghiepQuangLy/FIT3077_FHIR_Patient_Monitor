@@ -13,9 +13,21 @@ class Patient:
                                                                              "Observation class but it is of type " + \
                                                                              str(type(observation))
 
-        self.id = id
-        self.name = name
-        self.observations = observations
+        self._id = id
+        self._name = name
+        self._observations = observations
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def observations(self):
+        return self._observations
 
     def set_medical_data(self, observations: {Observation}):
 
@@ -27,11 +39,11 @@ class Patient:
                                                                              "Observation class but it is of type " + \
                                                                              str(type(observation))
 
-        self.observations = observations
+        self._observations = observations
 
     def update_observations(self, observation: Observation):
 
         assert issubclass(type(observation), Observation), "An observation must be an instance of Observation " \
                                                            "class but it is of type " + str(type(observation))
 
-        self.observations[observation.name] = observation
+        self._observations[observation.name] = observation

@@ -12,9 +12,21 @@ class Practitioner:
             assert type(patient) is Patient, "A patient in a list of patients should be an instance of Patient class" \
                                              "but is " + str(type(patient))
 
-        self.id = id
-        self.name = name
-        self.list_of_patients = list_of_patients
+        self._id = id
+        self._name = name
+        self._list_of_patients = list_of_patients
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def list_of_patients(self):
+        return self._list_of_patients
 
     def set_patients(self, list_of_patients: [Patient]):
 
@@ -22,4 +34,4 @@ class Practitioner:
             assert type(patient) is Patient, "A patient in a list of patients should be an instance of Patient class" \
                                              "but is " + str(type(patient))
 
-        self.list_of_patients = list_of_patients
+        self._list_of_patients = list_of_patients
