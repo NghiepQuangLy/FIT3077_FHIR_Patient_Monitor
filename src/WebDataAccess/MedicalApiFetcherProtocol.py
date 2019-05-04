@@ -1,7 +1,6 @@
 import urllib.request
 import json
 from abc import ABC, abstractmethod
-from DataModel.Practitioner import Practitioner
 from DataModel.Patient import Patient
 from DataModel.Observation import Observation
 
@@ -16,17 +15,12 @@ class MedicalApiFetcherProtocol(ABC):
         assert type(patient_id) is str, "patient_id should have type string but is " + str(type(patient_id))
 
     @abstractmethod
-    def fetch_practitioner(self, practitioner_id: str) -> Practitioner:
-        assert type(practitioner_id) is str, "practitioner_id should have type string but is " + \
-                                             str(type(practitioner_id))
-
-    @abstractmethod
     def fetch_patient_of_practitioner(self, practitioner_id: str) -> [Patient]:
         assert type(practitioner_id) is str, "practitioner_id should have type string but is " + \
                                              str(type(practitioner_id))
 
     @abstractmethod
-    def fetch_patient_measurements(self, patient_id: str) -> [Observation]:
+    def fetch_patient_measurements(self, patient_id: str) -> {Observation}:
         assert type(patient_id) is str, "patient_id should have type string but is " + str(type(patient_id))
 
     def _fetch(self, url):

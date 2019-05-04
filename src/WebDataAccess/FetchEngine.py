@@ -1,5 +1,6 @@
-from WebDataAccess.FhirApiFetcherProtocol import FhirApiFetcherProtocol
 from WebDataAccess.MedicalApiFetcherProtocol import MedicalApiFetcherProtocol
+from DataModel.Patient import Patient
+from DataModel.Observation import Observation
 
 
 class FetchEngine:
@@ -10,14 +11,15 @@ class FetchEngine:
                                                                             "type " + str(type(fetch_protocol))
         self.__fetch_protocol = fetch_protocol
 
-    def fetch_patient(self, patient_id: str):
+    def fetch_patient(self, patient_id: str) -> Patient:
+        assert type(patient_id) is str, "Patient id should be a string but it is of type " + str(type(patient_id))
         return self.__fetch_protocol.fetch_patient(patient_id)
 
-    def fetch_practitioner(self, patient_id: str):
-        return self.__fetch_protocol.fetch_practitioner(patient_id)
-
-    def fetch_patient_of_practitioner(self, practitioner_id: str):
+    def fetch_patient_of_practitioner(self, practitioner_id: str) -> [Patient]:
+        assert type(practitioner_id) is str, "Practitioner id should be a string but it is of type" + \
+                                             str(type(practitioner_id))
         return self.__fetch_protocol.fetch_patient_of_practitioner(practitioner_id)
 
-    def fetch_patient_measurements(self, patient_id: str):
+    def fetch_patient_measurements(self, patient_id: str) -> {Observation}:
+        assert type(patient_id) is str, "Patient id should be a string but it is of type " + str(type(patient_id))
         return self.__fetch_protocol.fetch_patient_measurements(patient_id)
