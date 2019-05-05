@@ -2,24 +2,30 @@ from WebDataAccess.FetchEngine import FetchEngine
 from DataModel.ModelProtocol import ModelProtocol
 from DataModel.Patient import Patient
 from Observer.Subject import Subject
+import threading
 
 
 class Model(ModelProtocol, Subject):
 
-    def __init__(self, fetch_engine: FetchEngine, user_id: int):
+    def __init__(self, fetch_engine: FetchEngine, user_id: int, update_frequency: int = 5):
 
         assert type(fetch_engine) is FetchEngine, "fetch engine needs to be of type FetchEngine but it is " + \
                                                  str(type(fetch_engine))
         assert type(user_id) is str, "user id should be of type string but it is of type " + str(type(user_id))
+        assert type(update_frequency) is int, "update frequency should be of type int but it is of type " + \
+                                              str(type(update_frequency))
 
         self.__fetch_engine = fetch_engine
         self.__user_id = user_id
+        self.__update_frequency = update_frequency
 
         list_of_patients = self.__fetch_engine.fetch_patient_of_practitioner(user_id)
 
         for patient in list_of_patients:
             self.add_patient(patient)
             self.add_unmonitored_patient(patient, "cholesterol")
+
+        #self._update_monitored_patient_data()
 
     def add_patient(self, patient: Patient):
 
@@ -99,3 +105,24 @@ class Model(ModelProtocol, Subject):
     def set_state(self):
         self._subject_state = {"list_of_patients": self._list_of_patients,
                                "list_of_monitors": self._list_of_monitors}
+
+    def _update_monitored_patient_data(self):
+
+        unique_patient_id_set = set()
+        #
+        for type_of_monitors in self._list_of_monitors:
+            for patient in self._list_of_monitors[type_of_monitors]:
+                unique_patient_id_set.add(patient.id)
+        #
+        for patient_id in unique_patient_id_set:
+            patient = self.get_patient(patient_id)
+            patient.set_medical_data(self.__fetch_engine.fetch_patient_measurements(patient_id))
+
+        if len(unique_patient_id_set) != 0:
+            print(len(unique_patient_id_set))
+            self.set_state()
+            self._notify()
+
+        print("hello")
+
+        threading.Timer(self.__update_frequency, self._update_monitored_patient_data).start()
