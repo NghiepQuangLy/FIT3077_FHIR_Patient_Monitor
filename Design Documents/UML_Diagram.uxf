@@ -309,14 +309,17 @@ is a kind of &gt;</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>525</x>
-      <y>50</y>
+      <y>40</y>
       <w>160</w>
-      <h>45</h>
+      <h>55</h>
     </coordinates>
     <panel_attributes>Practitioner
 --
-+ set_medical_data(observations: {Observation})
-+ update_observations(observation: Observation)</panel_attributes>
+- id: str
+- name: str
+- list_of_patients: [Patient]
+--
++ set_patients(list_of_patients: [Patient])</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
